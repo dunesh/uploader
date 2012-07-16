@@ -5,9 +5,11 @@ class UploaderController < ApplicationController
   end
   
   def create
- 
-  @photo=Upload.new(params[:name=>params[:id].original_filename])
-    @photo.save!
+  binding.pry
+  file_name = params[:upload][:photo].original_filename
+  file_directory = "app/assets/images/"
+  path = file_directory+file_name
+  File.open(path,"wb"){|f| f.write(params[:upload][:photo].read)}
   redirect_to :back
   
   end
